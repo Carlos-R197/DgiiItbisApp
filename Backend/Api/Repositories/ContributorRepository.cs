@@ -20,4 +20,9 @@ public class ContributorRepository : IContributorRepository
         var contributors = await dbContext.Contributors.ToListAsync();
         return contributors;
     }
+
+    public async Task<bool> ContributorExistsAsync(string rnc)
+    {
+        return await dbContext.Contributors.AnyAsync(t => t.RncIdentificationCard == rnc);
+    }
 }

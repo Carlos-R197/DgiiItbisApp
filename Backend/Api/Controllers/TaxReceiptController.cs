@@ -9,11 +9,13 @@ namespace Api.Controllers;
 public class TaxReceiptController : ControllerBase
 {
     private readonly ITaxReceiptRepository taxReceiptRepository;
+    private readonly IContributorRepository contributorRepository;
     private readonly ILogger<TaxReceiptController> logger;
 
-    public TaxReceiptController(ITaxReceiptRepository taxReceiptRepository, ILogger<TaxReceiptController> logger)
+    public TaxReceiptController(ITaxReceiptRepository taxReceiptRepository, IContributorRepository contributorRepository, ILogger<TaxReceiptController> logger)
     {
         this.taxReceiptRepository = taxReceiptRepository;
+        this.contributorRepository = contributorRepository;
         this.logger = logger;
     }
 
@@ -40,6 +42,12 @@ public class TaxReceiptController : ControllerBase
         string? route = Request.Path.Value;
         try 
         {
+            bool isRncValid = await contributorRepository.ContributorExistsAsync(rnc); 
+            if (!isRncValid)
+            {
+                return NotFound();
+            }
+
             var taxReceipts = await taxReceiptRepository.GetTaxReceiptsAsync(rnc); 
             logger.LogInformation($"{DateTime.Now.ToString("hh:mm:ss")}: Retrieved " +
                 $"{taxReceipts.Count()} items from {route} using the id {rnc}"); 

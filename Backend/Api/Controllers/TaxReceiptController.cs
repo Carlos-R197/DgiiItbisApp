@@ -33,4 +33,22 @@ public class TaxReceiptController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data");
         }
     }
+
+    [HttpGet("{rnc}")]
+    public async Task<ActionResult<IEnumerable<TaxReceipt>>> GetTaxReceiptsAsync(string rnc)
+    {
+        string? route = Request.Path.Value;
+        try 
+        {
+            var taxReceipts = await taxReceiptRepository.GetTaxReceiptsAsync(rnc); 
+            logger.LogInformation($"{DateTime.Now.ToString("hh:mm:ss")}: Retrieved " +
+                $"{taxReceipts.Count()} items from {route} using the id {rnc}"); 
+            return Ok(taxReceipts);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError($"{DateTime.Now.ToString("hh:mm:ss")}: Error at {route}; Message: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data");
+        }
+    }
 }

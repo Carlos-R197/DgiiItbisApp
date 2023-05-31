@@ -13,9 +13,16 @@ public class TaxReceiptRepository : ITaxReceiptRepository
     {
         this.dbContext = dbContext;
     }
+
     public async Task<IEnumerable<TaxReceipt>> GetTaxReceiptsAsync()
     {
         var taxReceipts = await dbContext.TaxReceipts.ToListAsync();
+        return taxReceipts;
+    }
+
+    public async Task<IEnumerable<TaxReceipt>> GetTaxReceiptsAsync(string rnc)
+    {
+        var taxReceipts = await dbContext.TaxReceipts.Where(t => t.RncIdentificationCard == rnc).ToListAsync();
         return taxReceipts;
     }
 }

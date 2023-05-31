@@ -5,20 +5,20 @@ namespace Api.Data;
 
 public class ApiDbContext : DbContext
 {
-    protected readonly IConfiguration Configuration;
+    protected readonly IConfiguration configuration;
 
     public DbSet<Contributor> Contributors { get; set; }
     public DbSet<TaxReceipt> TaxReceipts { get; set; }
 
     public ApiDbContext(DbContextOptions<ApiDbContext> options, IConfiguration config) : base(options)
     {
-        Configuration = config;
+        configuration = config;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         // connect to sql server with connection string from app settings
-        options.UseSqlServer(Configuration.GetConnectionString("ApiDb"));
+        options.UseSqlServer(configuration.GetConnectionString("ApiDb"));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

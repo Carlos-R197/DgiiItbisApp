@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import "./ContributorsPage.css"
+import { useNavigate } from "react-router-dom"
 
 export default function ContributorsPage() {
   const [contributors, setContributors] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchContributors = async () => {
@@ -13,6 +14,10 @@ export default function ContributorsPage() {
 
     fetchContributors()
   }, [])
+
+  const onContributorClicked = (contributor) => {
+    navigate(`/tax-receipts/${contributor.rncIdentificationCard}`)
+  }
 
   const printStatus = (status) => {
     if (status) {
@@ -40,19 +45,19 @@ export default function ContributorsPage() {
         <table className="styled-table m-auto w-full">
           <thead>
             <tr>
-              <th>RncCedula</th>
+              <th>RncCédula</th>
               <th>Nombre</th>
               <th>Tipo</th>
               <th>Estado</th>
             </tr>
           </thead>
           <tbody>
-            {contributors.length > 0 && contributors.map((item, index) => (
-              <tr key={index}>
-                <td>{item.rncIdentificationCard}</td>
-                <td>{toTitleCase(item.name)}</td>
-                <td>{toTitleCase(item.type)}</td>
-                <td>{printStatus(item.active)}</td>
+            {contributors.length > 0 && contributors.map((contributor, index) => (
+              <tr className="clickable-row" key={index} onClick={() => onContributorClicked(contributor)}>
+                <td>{contributor.rncIdentificationCard}</td>
+                <td>{toTitleCase(contributor.name)}</td>
+                <td>{toTitleCase(contributor.type)}</td>
+                <td>{printStatus(contributor.active)}</td>
               </tr>
             ))}
           </tbody>

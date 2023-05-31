@@ -15,7 +15,7 @@ public class ContributorRepository : IContributorRepository
         this.dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Contributor>> GetContributors()
+    public async Task<IEnumerable<Contributor>> GetContributorsAsync()
     {
         var contributors = await dbContext.Contributors.ToListAsync();
         return contributors;

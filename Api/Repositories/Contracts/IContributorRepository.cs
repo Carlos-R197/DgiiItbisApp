@@ -4,5 +4,5 @@ namespace Api.Repositories.Contracts;
 
 public interface IContributorRepository
 {
-    public Task<IEnumerable<Contributor>> GetContributors();
+    public Task<IEnumerable<Contributor>> GetContributorsAsync();
 }

@@ -18,12 +18,12 @@ public class TaxReceiptController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TaxReceipt>>> GetTaxReceipts()
+    public async Task<ActionResult<IEnumerable<TaxReceipt>>> GetTaxReceiptsAsync()
     {
         string? route = Request.Path.Value;
         try 
         {
-            var taxReceipts = await taxReceiptRepository.GetTaxReceipts(); 
+            var taxReceipts = await taxReceiptRepository.GetTaxReceiptsAsync(); 
             logger.LogInformation($"{DateTime.Now.ToString("hh:mm:ss")}: Retrieved {taxReceipts.Count()} items from {route}"); 
             return Ok(taxReceipts);
         }

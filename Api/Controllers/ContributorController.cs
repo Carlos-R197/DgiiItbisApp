@@ -18,12 +18,13 @@ public class ContributorController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Contributor>>> GetContributors()
+    public async Task<ActionResult<IEnumerable<Contributor>>> GetContributorsAsync()
     {
+        // Change this later on and mock the request object on the tests.
         string? route = Request.Path.Value;
         try 
         {
-            var contributors = await contributorRepository.GetContributors();
+            var contributors = await contributorRepository.GetContributorsAsync();
             logger.LogInformation($"{DateTime.Now.ToString("hh:mm:ss")}: Retrieved {contributors.Count()} items from {route}"); 
             return Ok(contributors);
         }

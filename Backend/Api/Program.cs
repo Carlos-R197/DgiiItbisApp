@@ -2,6 +2,8 @@ using Api.Data;
 using Api.Repositories.Contracts;
 using Api.Repositories;
 
+string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +16,16 @@ builder.Services.AddScoped<ITaxReceiptRepository, TaxReceiptRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy(
+        name: myAllowSpecificOrigins, 
+        policy => 
+        {
+            policy.WithOrigins("http://127.0.0.1:5173");
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,9 +36,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(myAllowSpecificOrigins);
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

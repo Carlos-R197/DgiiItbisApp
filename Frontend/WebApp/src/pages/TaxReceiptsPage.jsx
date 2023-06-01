@@ -1,19 +1,25 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
+import { PulseLoader } from "react-spinners"
 
 export default function TaxReceiptsPage() {
   const [receipts, setReceipts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   const {rnc} = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchReceipts = async () => {
       try {
         const res = await axios.get(`/tax-receipts/${rnc}`)
         setReceipts(res.data)
+        setIsLoading(false)
       } catch (err) {
         if (err.response.status === 404) {
-          alert("rnc doesn't exist")
+          setIsLoading(false)
+          navigate("/not-found")
+          console.log("redirected")
         }
       }
     }
@@ -39,6 +45,22 @@ export default function TaxReceiptsPage() {
     return getAsCurrency(sum)
   }
 
+  if (isLoading) {
+    return (
+      <div className="spinner">
+        <PulseLoader size={25} color="#36d7b7" />
+      </div>
+    )
+  }
+  // else if (!isLoading && receipts.length === 0) {
+  //   return (
+  //     <div className="flex items-center justify-center h-screen-90 font-semibold text-lg">
+  //       <div>
+  //         No existen comprobantes para este contribuyente
+  //       </div>
+  //     </div>
+  //   )
+  // }
   return (
     <div className="p-12 md:p-24 lg:px-36 lg:pt-16 w-full">
       <div className="max-w-3xl w-full m-auto">
@@ -63,6 +85,9 @@ export default function TaxReceiptsPage() {
             ))}
           </tbody>
         </table>
+        {receipts.length === 0 && !isLoading && (
+          <div className="text-center">No existen comprobantes para este contribuyente</div>
+        )}
         <div className="flex mt-3 justify-between">
           <Link className="bg-gray-300 rounded-3xl p-2" to="/">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">

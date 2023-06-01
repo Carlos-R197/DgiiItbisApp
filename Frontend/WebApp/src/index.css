@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --primary: #009879;
+    --white: #ffffff;
+}
+
 .styled-table {
     border-collapse: collapse;
     margin: 25px 0;
@@ -13,8 +18,8 @@
 }
 
 .styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
+    background-color: var(--primary);
+    color: var(--white);
     text-align: left;
 }
 
@@ -32,11 +37,18 @@
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: thin solid #009879;
+    border-bottom: thin solid var(--primary);
 }
 
 .clickable-row:hover {
     font-weight: bold;
-    color: #009879;
+    color: var(--primary);
     cursor: pointer;
+}
+
+.spinner {
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
 }

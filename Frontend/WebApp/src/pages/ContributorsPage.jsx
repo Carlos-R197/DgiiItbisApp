@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { PulseLoader } from "react-spinners"
 
 export default function ContributorsPage() {
   const [contributors, setContributors] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
 
   useEffect(() => {
     const fetchContributors = async () => {
       const res = await axios.get("/contributors")
       setContributors(res.data)
+      setIsLoading(false)
     }
 
     fetchContributors()
@@ -36,6 +39,14 @@ export default function ContributorsPage() {
     }
     title = words.join(' ')
     return title
+  }
+
+  if (isLoading) {
+    return (
+      <div className="spinner">
+        <PulseLoader size={25} color="#36d7b7" />
+      </div>
+    )
   }
 
   return (

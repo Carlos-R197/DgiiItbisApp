@@ -19,7 +19,7 @@ public class LogController : ControllerBase
     {
         try 
         {
-            logger.LogError($"{postLogRequestDto.DateTime}: Error at /error-logs; Message: {postLogRequestDto.Msg}; StackTrace: {postLogRequestDto.StackTrace}");
+            logger.LogError($"Error at /error-logs; Message: {postLogRequestDto.Msg}; StackTrace: {postLogRequestDto.StackTrace}");
             return Ok("Error posted successfully");
         }
         catch (Exception ex)

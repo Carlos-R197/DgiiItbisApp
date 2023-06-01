@@ -1,13 +1,20 @@
 using Api.Data;
 using Api.Repositories.Contracts;
 using Api.Repositories;
+using Serilog;
 
 string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Setup serilgo
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
 
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApiDbContext>();
 builder.Services.AddScoped<IContributorRepository, ContributorRepository>();

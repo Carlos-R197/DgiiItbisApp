@@ -27,12 +27,12 @@ public class TaxReceiptController : ControllerBase
         try 
         {
             var taxReceipts = await taxReceiptRepository.GetTaxReceiptsAsync(); 
-            logger.LogInformation($"{DateTime.Now.ToLocalTime()}: Retrieved {taxReceipts.Count()} items from {route}"); 
+            logger.LogInformation($"Retrieved {taxReceipts.Count()} items from {route}"); 
             return Ok(taxReceipts);
         }
         catch (Exception ex)
         {
-            logger.LogError($"{DateTime.Now.ToLocalTime()}: Error at {route}; Message: {ex.Message}; StackTrace: {ex.StackTrace}");
+            logger.LogError($"Error at {route}; Message: {ex.Message}; StackTrace: {ex.StackTrace}");
             return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data");
         }
     }
@@ -50,13 +50,12 @@ public class TaxReceiptController : ControllerBase
             }
 
             var taxReceipts = await taxReceiptRepository.GetTaxReceiptsAsync(rnc); 
-            logger.LogInformation($"{DateTime.Now.ToLocalTime()}: Retrieved " +
-                $"{taxReceipts.Count()} items from {route} using the id {rnc}"); 
+            logger.LogInformation($"Retrieved {taxReceipts.Count()} items from {route} using the id {rnc}"); 
             return Ok(taxReceipts);
         }
         catch (Exception ex)
         {
-            logger.LogError($"{DateTime.Now.ToLocalTime()}: Error at {route}; Message: {ex.Message}; StackTrace: {ex.StackTrace}");
+            logger.LogError($"Error at {route}; Message: {ex.Message}; StackTrace: {ex.StackTrace}");
             return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data");
         }
     }

@@ -22,7 +22,7 @@ public class LogController : ControllerBase
             logger.LogError($"Error at /error-logs; Message: {postLogRequestDto.Msg}; StackTrace: {postLogRequestDto.StackTrace}");
             return Ok("Error posted successfully");
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data");
         }

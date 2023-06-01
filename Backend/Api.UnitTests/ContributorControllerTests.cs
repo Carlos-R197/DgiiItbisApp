@@ -11,42 +11,30 @@ namespace Api.UnitTests;
 
 public class ContributorControllerTests
 {
-    private readonly Mock<IContributorRepository> repositoryStub = new();
+    private readonly Mock<IContributorRepository> contributorRepoStub = new();
     private readonly Mock<ILogger<ContributorController>> loggerStub = new();
 
     [Fact]
-    public async void GetContributorsAsync_WithDefault_ReturnsOk()
+    public async void GetContributorsAsync_ReturnsContributors()
     {
         // Arrange
-        repositoryStub.Setup(repo => repo.GetContributorsAsync())
-            .ReturnsAsync(Enumerable.Empty<Contributor>());
+        contributorRepoStub.Setup(repo => repo.GetContributorsAsync())
+            .ReturnsAsync(() => GetListOfRandomContributors());
 
-        var controller = new ContributorController(repositoryStub.Object, loggerStub.Object);
+        var controller = new ContributorController(contributorRepoStub.Object, loggerStub.Object);
         // Act
-        var result = await controller.GetContributorsAsync();
+        var result = (await controller.GetContributorsAsync()).Result as OkObjectResult;
         // Assert
-        Assert.IsType<OkObjectResult>(result.Result);
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
+        Assert.IsAssignableFrom<IEnumerable<Contributor>>(result.Value);
+        Assert.NotEmpty(result.Value as IEnumerable<Contributor>);
     }
-
-    // [Fact]
-    // public async Task GetContributorsAsync_WithExistingContributors_ReturnsContributorsList()
-    // {
-    //     // Given
-    //     var expectedResult = GetListOfRandomContributors();
-    //     repositoryStub.Setup(t => t.GetContributorsAsync()).ReturnsAsync(expectedResult);
-    //     var controller = new ContributorController(repositoryStub.Object, loggerStub.Object);
-    //     // When
-    //     var result = await controller.GetContributorsAsync();
-    //     // Then
-       
-    //     // TODO: use fluent assertions to finish
-        
-    // }
 
     private IEnumerable<Contributor> GetListOfRandomContributors()
     {
         var list = new List<Contributor>();
-        for (int i = 0; i < Random.Shared.Next(1, 20); i++)
+        for (int i = 0; i < Random.Shared.Next(2, 20); i++)
         {
             list.Add(new Contributor 
             {

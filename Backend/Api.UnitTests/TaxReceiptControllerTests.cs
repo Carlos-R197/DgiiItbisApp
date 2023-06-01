@@ -27,11 +27,11 @@ public class TaxReceiptControllerTests
         
         var controller = new TaxReceiptController(taxRepoStub.Object, contributorRepoStub.Object, loggerStub.Object);
         // Act
-        var result = await controller.GetTaxReceiptsAsync("52987455224");
-        var okObjectResult = result.Result as OkObjectResult;
+        var result = (await controller.GetTaxReceiptsAsync("52987455224")).Result as OkObjectResult;
         // Assert 
-        Assert.IsType<OkObjectResult>(result.Result);
-        Assert.IsAssignableFrom<IEnumerable<TaxReceipt>>(okObjectResult.Value);
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
+        Assert.IsAssignableFrom<IEnumerable<TaxReceipt>>(result.Value);
     }
 
     [Fact]
@@ -45,8 +45,9 @@ public class TaxReceiptControllerTests
         
         var controller = new TaxReceiptController(taxRepoStub.Object, contributorRepoStub.Object, loggerStub.Object);
         // Act
-        var result = await controller.GetTaxReceiptsAsync("69921108970");
+        var result = (await controller.GetTaxReceiptsAsync("69921108970")).Result as NotFoundResult;
         // Assert 
-        Assert.IsType<NotFoundResult>(result.Result);
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status404NotFound, result.StatusCode);
     }
 }

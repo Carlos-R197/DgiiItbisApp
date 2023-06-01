@@ -3,6 +3,7 @@ using Moq;
 using Api.Controllers;
 using Api.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Api.UnitTests;
 
@@ -22,10 +23,10 @@ public class LogControllerTests
             StackTrace = "Test stack trace"
         };
         // Act
-        var result = await controller.PostLogAsync(postLogRequestDto);
-        var okObjectResult = (OkObjectResult)result.Result;
+        var result = (await controller.PostLogAsync(postLogRequestDto)).Result as OkObjectResult;
         // Assert
-        Assert.IsType<OkObjectResult>(result.Result);
-        Assert.Equal("Error posted successfully", okObjectResult.Value);
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
+        Assert.Equal("Error posted successfully", result.Value);
     }
 }

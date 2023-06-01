@@ -3,6 +3,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { PulseLoader } from "react-spinners"
 import LoadingIndicator from "../components/LoadingIndicator"
+import formatIdCard from "../utils/utils"
 
 export default function ContributorsPage() {
   const [contributors, setContributors] = useState([])
@@ -69,7 +70,7 @@ export default function ContributorsPage() {
           <tbody>
             {contributors.length > 0 && contributors.map((contributor, index) => (
               <tr className="clickable-row" key={index} onClick={() => onContributorClicked(contributor)}>
-                <td>{contributor.rncIdentificationCard}</td>
+                <td>{formatIdCard(contributor.rncIdentificationCard)}</td>
                 <td>{toTitleCase(contributor.name)}</td>
                 <td>{toTitleCase(contributor.type)}</td>
                 <td>{printStatus(contributor.active)}</td>

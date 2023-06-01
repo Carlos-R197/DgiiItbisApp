@@ -2,6 +2,7 @@ using Api.Data;
 using Api.Repositories.Contracts;
 using Api.Repositories;
 using Serilog;
+using Serilog.Events;
 
 string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Setup serilgo
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
+    .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
     .CreateLogger();
 
 builder.Logging.ClearProviders();

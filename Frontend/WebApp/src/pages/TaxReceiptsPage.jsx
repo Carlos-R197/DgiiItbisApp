@@ -5,6 +5,7 @@ import { PulseLoader } from "react-spinners"
 import { format } from "date-fns"
 import logger from "../services/logService"
 import LoadingIndicator from "../components/LoadingIndicator"
+import formatIdCard from "../utils/utils"
 
 export default function TaxReceiptsPage() {
   const [receipts, setReceipts] = useState([])
@@ -69,7 +70,7 @@ export default function TaxReceiptsPage() {
           <tbody>
             {receipts.length > 0 && receipts.map((receipt, index) => (
               <tr key={index}>
-                <td>{receipt.rncIdentificationCard}</td>
+                <td>{formatIdCard(receipt.rncIdentificationCard)}</td>
                 <td>{receipt.ncf}</td>
                 <td>{getAsCurrency(receipt.amount)}</td>
                 <td>{getAsCurrency(receipt.itbis18)}</td>

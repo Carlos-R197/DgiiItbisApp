@@ -25,12 +25,12 @@ public class ContributorController : ControllerBase
         try 
         {
             var contributors = await contributorRepository.GetContributorsAsync();
-            logger.LogInformation($"{DateTime.Now.ToString("hh:mm:ss")}: Retrieved {contributors.Count()} items from {route}"); 
+            logger.LogInformation($"{DateTime.Now.ToLocalTime()}: Retrieved {contributors.Count()} items from {route}"); 
             return Ok(contributors);
         }
         catch (Exception ex)
         {
-            logger.LogError($"{DateTime.Now.ToString("hh:mm:ss")}: Error at {route}; Message: {ex.Message}");
+            logger.LogError($"{DateTime.Now.ToLocalTime()}: Error at {route}; Message: {ex.Message}; StackTrace: {ex.StackTrace}");
             return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data");
         }
     }

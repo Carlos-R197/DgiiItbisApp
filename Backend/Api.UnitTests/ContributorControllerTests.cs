@@ -16,7 +16,7 @@ public class ContributorControllerTests
     private readonly Mock<ILogger<ContributorController>> loggerStub = new();
 
     [Fact]
-    public async Task GetContributorsAsync_WithDefault_ReturnsOk()
+    public async void GetContributorsAsync_WithDefault_ReturnsOk()
     {
         // Arrange
         repositoryStub.Setup(repo => repo.GetContributorsAsync())

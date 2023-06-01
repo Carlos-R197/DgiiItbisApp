@@ -38,10 +38,10 @@ public class TaxReceiptControllerTests
         var controllerContext = new Mock<ControllerContext>(actionContext.Object);
         controller.ControllerContext = controllerContext.Object;
         // Act
-        var response = await controller.GetTaxReceiptsAsync();
-        var result = response.Result as OkObjectResult;
+        var result = await controller.GetTaxReceiptsAsync();
+        var okObjectResult = result.Result as OkObjectResult;
         //Assert 
-        Assert.IsType<OkObjectResult>(response.Result);
-        Assert.IsAssignableFrom<IEnumerable<TaxReceipt>>(result.Value);
+        Assert.IsType<OkObjectResult>(result.Result);
+        Assert.IsAssignableFrom<IEnumerable<TaxReceipt>>(okObjectResult.Value);
     }
 }

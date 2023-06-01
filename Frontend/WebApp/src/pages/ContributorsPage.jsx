@@ -10,9 +10,13 @@ export default function ContributorsPage() {
 
   useEffect(() => {
     const fetchContributors = async () => {
-      const res = await axios.get("/contributors")
-      setContributors(res.data)
-      setIsLoading(false)
+      try {
+        const res = await axios.get("/contributors")
+        setContributors(res.data)
+        setIsLoading(false)
+      } catch (err) {
+        logger.logError(err.message, err.stack)
+      }
     }
 
     fetchContributors()

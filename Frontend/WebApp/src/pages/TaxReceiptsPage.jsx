@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import { PulseLoader } from "react-spinners"
+import { format } from "date-fns"
+import logger from "../services/logService"
 
 export default function TaxReceiptsPage() {
   const [receipts, setReceipts] = useState([])
@@ -16,10 +18,9 @@ export default function TaxReceiptsPage() {
         setReceipts(res.data)
         setIsLoading(false)
       } catch (err) {
+        logger.logError(err.message, err.stack)
         if (err.response.status === 404) {
-          setIsLoading(false)
           navigate("/not-found")
-          console.log("redirected")
         }
       }
     }

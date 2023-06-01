@@ -10,7 +10,7 @@ namespace Api.Controllers;
 public class ContributorController : ControllerBase
 {
     private readonly IContributorRepository contributorRepository;
-    private readonly ILogger<ContributorController> logger;
+    private readonly ILogger logger;
     public ContributorController(IContributorRepository contributorRepository, ILogger<ContributorController> logger)
     {
         this.contributorRepository = contributorRepository;

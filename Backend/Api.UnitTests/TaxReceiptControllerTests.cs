@@ -16,18 +16,21 @@ public class TaxReceiptControllerTests
     public async void GetTaxReceiptsAsync_WithDefault_ReturnsOk()
     {
         // Arrange
-        var repositoryStub = new Mock<ITaxReceiptRepository>();
-        repositoryStub
+        var taxRepoStub = new Mock<ITaxReceiptRepository>();
+        taxRepoStub
             .Setup(t => t.GetTaxReceiptsAsync())
             .ReturnsAsync(new List<TaxReceipt>());
+        var contributorRepoStub = new Mock<IContributorRepository>();
+        contributorRepoStub
+            .Setup(t => t.ContributorExistsAsync("52987455224"))
+            .ReturnsAsync(true);
         var loggerStub = new Mock<ILogger<TaxReceiptController>>();
         
-        var controller = new TaxReceiptController(repositoryStub.Object, loggerStub.Object);
+        var controller = new TaxReceiptController(taxRepoStub.Object, contributorRepoStub.Object, loggerStub.Object);
         var request = new Mock<HttpRequest>();
         request.SetupGet(t => t.Path).Returns(new PathString(""));
         var httpContext = new Mock<HttpContext>();
         httpContext.SetupGet(t => t.Request).Returns(request.Object);
-        //var actionContext = new ActionContext(httpContext.Object, new RouteData(), new ControllerActionDescriptor());
         var actionContext = new Mock<ActionContext>();
         actionContext.Object.HttpContext = httpContext.Object;
         actionContext.Object.RouteData = new RouteData();

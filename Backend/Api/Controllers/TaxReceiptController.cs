@@ -10,9 +10,10 @@ public class TaxReceiptController : ControllerBase
 {
     private readonly ITaxReceiptRepository taxReceiptRepository;
     private readonly IContributorRepository contributorRepository;
-    private readonly ILogger<TaxReceiptController> logger;
+    private readonly ILogger logger;
 
-    public TaxReceiptController(ITaxReceiptRepository taxReceiptRepository, IContributorRepository contributorRepository, ILogger<TaxReceiptController> logger)
+    public TaxReceiptController(ITaxReceiptRepository taxReceiptRepository,
+        IContributorRepository contributorRepository, ILogger<TaxReceiptController> logger)
     {
         this.taxReceiptRepository = taxReceiptRepository;
         this.contributorRepository = contributorRepository;

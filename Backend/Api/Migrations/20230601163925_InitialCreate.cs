@@ -16,9 +16,9 @@ namespace Api.Migrations
                 name: "Contributors",
                 columns: table => new
                 {
-                    RncIdentificationCard = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RncIdentificationCard = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -31,9 +31,9 @@ namespace Api.Migrations
                 columns: table => new
                 {
                     NCF = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RncIdentificationCard = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Itbis18 = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    RncIdentificationCard = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    Itbis18 = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,7 +45,10 @@ namespace Api.Migrations
                 columns: new[] { "RncIdentificationCard", "Active", "Name", "Type" },
                 values: new object[,]
                 {
-                    { "123456789", false, "FARMACIA TU SALUD", "PERSONA JURIDICA" },
+                    { "12345678957", false, "FARMACIA TU SALUD", "PERSONA JURIDICA" },
+                    { "36971698521", false, "ERIKA DIAZ", "PERSONA FISICA" },
+                    { "56982214565", true, "HORMIGONES PEDRO", "PERSONA JURIDICA" },
+                    { "93581769874", true, "JORGE ALONZO", "PERSONA FISICA" },
                     { "98754321012", true, "JUAN PEREZ", "PERSONA FISICA" }
                 });
 
@@ -55,7 +58,12 @@ namespace Api.Migrations
                 values: new object[,]
                 {
                     { "E310000000001", 200.00m, 36.00m, "98754321012" },
-                    { "E310000000002", 1000.00m, 180.00m, "98754321012" }
+                    { "E310000000002", 1000.00m, 180.00m, "98754321012" },
+                    { "E310000000003", 6657.24m, 1198.30m, "56982214565" },
+                    { "E310000000004", 4265.00m, 767.70m, "56982214565" },
+                    { "E310000000005", 2354.21m, 423.75m, "36971698521" },
+                    { "E310000000006", 364.00m, 65.52m, "36971698521" },
+                    { "E310000000007", 500.00m, 90.00m, "36971698521" }
                 });
         }
 

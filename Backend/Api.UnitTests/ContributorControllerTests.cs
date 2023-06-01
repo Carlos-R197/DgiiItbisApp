@@ -11,7 +11,6 @@ namespace Api.UnitTests;
 
 public class ContributorControllerTests
 {
-
     private readonly Mock<IContributorRepository> repositoryStub = new();
     private readonly Mock<ILogger<ContributorController>> loggerStub = new();
 

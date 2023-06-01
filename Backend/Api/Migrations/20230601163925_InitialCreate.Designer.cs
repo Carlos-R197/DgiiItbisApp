@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20230530184759_InitialCreate")]
+    [Migration("20230601163925_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,18 +27,21 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Entities.Contributor", b =>
                 {
                     b.Property<string>("RncIdentificationCard")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("RncIdentificationCard");
 
@@ -54,10 +57,31 @@ namespace Api.Migrations
                         },
                         new
                         {
-                            RncIdentificationCard = "123456789",
+                            RncIdentificationCard = "12345678957",
                             Active = false,
                             Name = "FARMACIA TU SALUD",
                             Type = "PERSONA JURIDICA"
+                        },
+                        new
+                        {
+                            RncIdentificationCard = "56982214565",
+                            Active = true,
+                            Name = "HORMIGONES PEDRO",
+                            Type = "PERSONA JURIDICA"
+                        },
+                        new
+                        {
+                            RncIdentificationCard = "93581769874",
+                            Active = true,
+                            Name = "JORGE ALONZO",
+                            Type = "PERSONA FISICA"
+                        },
+                        new
+                        {
+                            RncIdentificationCard = "36971698521",
+                            Active = false,
+                            Name = "ERIKA DIAZ",
+                            Type = "PERSONA FISICA"
                         });
                 });
 
@@ -67,14 +91,17 @@ namespace Api.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Itbis18")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("RncIdentificationCard")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("NCF");
 
@@ -94,6 +121,41 @@ namespace Api.Migrations
                             Amount = 1000.00m,
                             Itbis18 = 180.00m,
                             RncIdentificationCard = "98754321012"
+                        },
+                        new
+                        {
+                            NCF = "E310000000003",
+                            Amount = 6657.24m,
+                            Itbis18 = 1198.30m,
+                            RncIdentificationCard = "56982214565"
+                        },
+                        new
+                        {
+                            NCF = "E310000000004",
+                            Amount = 4265.00m,
+                            Itbis18 = 767.70m,
+                            RncIdentificationCard = "56982214565"
+                        },
+                        new
+                        {
+                            NCF = "E310000000005",
+                            Amount = 2354.21m,
+                            Itbis18 = 423.75m,
+                            RncIdentificationCard = "36971698521"
+                        },
+                        new
+                        {
+                            NCF = "E310000000006",
+                            Amount = 364.00m,
+                            Itbis18 = 65.52m,
+                            RncIdentificationCard = "36971698521"
+                        },
+                        new
+                        {
+                            NCF = "E310000000007",
+                            Amount = 500.00m,
+                            Itbis18 = 90.00m,
+                            RncIdentificationCard = "36971698521"
                         });
                 });
 #pragma warning restore 612, 618

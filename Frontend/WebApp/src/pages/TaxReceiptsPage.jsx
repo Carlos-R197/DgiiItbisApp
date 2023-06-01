@@ -4,6 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom"
 import { PulseLoader } from "react-spinners"
 import { format } from "date-fns"
 import logger from "../services/logService"
+import LoadingIndicator from "../components/LoadingIndicator"
 
 export default function TaxReceiptsPage() {
   const [receipts, setReceipts] = useState([])
@@ -47,21 +48,9 @@ export default function TaxReceiptsPage() {
   }
 
   if (isLoading) {
-    return (
-      <div className="spinner">
-        <PulseLoader size={25} color="#36d7b7" />
-      </div>
-    )
+    return <LoadingIndicator/>
   }
-  // else if (!isLoading && receipts.length === 0) {
-  //   return (
-  //     <div className="flex items-center justify-center h-screen-90 font-semibold text-lg">
-  //       <div>
-  //         No existen comprobantes para este contribuyente
-  //       </div>
-  //     </div>
-  //   )
-  // }
+  
   return (
     <div className="p-12 md:p-24 lg:px-36 lg:pt-16 w-full">
       <div className="max-w-3xl w-full m-auto">
@@ -95,7 +84,7 @@ export default function TaxReceiptsPage() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
           </Link>
-          <div className="font-semibold text-xl pt-1 ">
+          <div className="font-semibold text-xl pt-1 font-serif">
             Total Itbis: {calculateTotal()}
           </div>
         </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { PulseLoader } from "react-spinners"
+import LoadingIndicator from "../components/LoadingIndicator"
 
 export default function ContributorsPage() {
   const [contributors, setContributors] = useState([])
@@ -46,11 +47,7 @@ export default function ContributorsPage() {
   }
 
   if (isLoading) {
-    return (
-      <div className="spinner">
-        <PulseLoader size={25} color="#36d7b7" />
-      </div>
-    )
+    return <LoadingIndicator/>
   }
 
   return (

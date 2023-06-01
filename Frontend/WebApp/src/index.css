@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-    --primary: #009879;
+    --primary: #80A1C1;
+    --secondary: #EEE3AB;
     --white: #ffffff;
 }
 
@@ -21,11 +22,13 @@
     background-color: var(--primary);
     color: var(--white);
     text-align: left;
+    @apply font-mono;
 }
 
 .styled-table th,
 .styled-table td {
     @apply py-3 px-4;
+    @apply font-serif
 }
 
 .styled-table tbody tr {
@@ -51,4 +54,8 @@
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%);
+}
+
+h1, h2 {
+    @apply font-mono;
 }

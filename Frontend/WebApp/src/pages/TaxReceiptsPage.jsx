@@ -22,6 +22,8 @@ export default function TaxReceiptsPage() {
         logger.logError(err.message, err.stack)
         if (err.response.status === 404) {
           navigate("/not-found")
+        } else if (err.response.status >= 500) {
+          navigate("/server-error")
         }
       }
     }

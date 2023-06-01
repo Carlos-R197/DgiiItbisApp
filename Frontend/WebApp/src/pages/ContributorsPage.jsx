@@ -17,6 +17,9 @@ export default function ContributorsPage() {
         setIsLoading(false)
       } catch (err) {
         logger.logError(err.message, err.stack)
+        if (err.response.status >= 500) {
+          navigate("/server-error")
+        }
       }
     }
 

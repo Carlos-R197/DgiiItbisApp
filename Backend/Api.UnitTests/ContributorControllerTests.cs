@@ -22,13 +22,6 @@ public class ContributorControllerTests
             .ReturnsAsync(Enumerable.Empty<Contributor>());
 
         var controller = new ContributorController(repositoryStub.Object, loggerStub.Object);
-
-        var request = new Mock<HttpRequest>();
-        request.SetupGet(t => t.Path).Returns(new PathString(""));
-        var httpContext = new Mock<HttpContext>();
-        httpContext.SetupGet(t => t.Request).Returns(request.Object);
-        var actionContext = new ActionContext(httpContext.Object, new RouteData(), new Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor());
-        controller.ControllerContext = new ControllerContext(actionContext);
         // Act
         var result = await controller.GetContributorsAsync();
         // Assert

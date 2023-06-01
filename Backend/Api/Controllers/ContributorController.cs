@@ -20,17 +20,15 @@ public class ContributorController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Contributor>>> GetContributorsAsync()
     {
-        // Change this later on and mock the request object on the tests.
-        string? route = Request.Path.Value;
         try 
         {
             var contributors = await contributorRepository.GetContributorsAsync();
-            logger.LogInformation($"Retrieved {contributors.Count()} items from {route}"); 
+            logger.LogInformation($"Retrieved {contributors.Count()} items from /contributors"); 
             return Ok(contributors);
         }
         catch (Exception ex)
         {
-            logger.LogError($"Error at {route}; Message: {ex.Message}; StackTrace: {ex.StackTrace}");
+            logger.LogError($"Error retrieving at /contributors; Message: {ex.Message}; StackTrace: {ex.StackTrace}");
             return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data");
         }
     }

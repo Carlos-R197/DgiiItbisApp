@@ -13,6 +13,7 @@ public class LogControllerTests
     [Fact]
     public async void PostLog_Valid_ReturnsOk()
     {
+        // Arrange
         var controller = new LogController(loggerStub.Object);
         var postLogRequestDto = new PostLogRequestDto 
         {
@@ -20,8 +21,10 @@ public class LogControllerTests
             Msg = "Test msg",
             StackTrace = "Test stack trace"
         };
+        // Act
         var result = await controller.PostLogAsync(postLogRequestDto);
         var okObjectResult = (OkObjectResult)result.Result;
+        // Assert
         Assert.IsType<OkObjectResult>(result.Result);
         Assert.Equal("Error posted successfully", okObjectResult.Value);
     }

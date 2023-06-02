@@ -3,7 +3,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { PulseLoader } from "react-spinners"
 import LoadingIndicator from "../components/LoadingIndicator"
-import formatIdCard from "../utils/utils"
+import { formatIdCard, toTitleCase } from "../utils/utils"
 
 export default function ContributorsPage() {
   const [contributors, setContributors] = useState([])
@@ -28,7 +28,8 @@ export default function ContributorsPage() {
   }, [])
 
   const onContributorClicked = (contributor) => {
-    navigate(`/tax-receipts/${contributor.rncIdentificationCard}`)
+    const options = { state: { contributorName: contributor.name }}
+    navigate(`/tax-receipts/${contributor.rncIdentificationCard}`, options )
   }
 
   const printStatus = (status) => {
@@ -38,16 +39,6 @@ export default function ContributorsPage() {
     else {
       return "Inactivo"
     }
-  }
-
-  const toTitleCase = (title) => {
-    title = title.toLowerCase()
-    const words = title.split(' ')
-    for (let i = 0; i < words.length; i++) {
-      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1)
-    }
-    title = words.join(' ')
-    return title
   }
 
   if (isLoading) {

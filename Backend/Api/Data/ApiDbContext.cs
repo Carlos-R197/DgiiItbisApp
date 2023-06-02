@@ -35,14 +35,14 @@ public class ApiDbContext : DbContext
         });
         modelBuilder.Entity<Contributor>().HasData(new Contributor
         {
-            RncIdentificationCard = "12345678957",
+            RncIdentificationCard = "103457957",
             Name = "FARMACIA TU SALUD",
             Type = "PERSONA JURIDICA",
             Active = false
         });
         modelBuilder.Entity<Contributor>().HasData(new Contributor
         {
-            RncIdentificationCard = "56982214565",
+            RncIdentificationCard = "569814260",
             Name = "HORMIGONES PEDRO",
             Type = "PERSONA JURIDICA",
             Active = true
@@ -77,13 +77,13 @@ public class ApiDbContext : DbContext
         });
 
         modelBuilder.Entity<TaxReceipt>().HasData(new TaxReceipt {
-            RncIdentificationCard = "56982214565",
+            RncIdentificationCard = "569814260",
             NCF = "E310000000003",
             Amount = 6657.24M,
             Itbis18 = 1198.30M,
         });
         modelBuilder.Entity<TaxReceipt>().HasData(new TaxReceipt {
-            RncIdentificationCard = "56982214565",
+            RncIdentificationCard = "569814260",
             NCF = "E310000000004",
             Amount = 4265.00M,
             Itbis18 = 767.70M,
@@ -104,6 +104,37 @@ public class ApiDbContext : DbContext
         modelBuilder.Entity<TaxReceipt>().HasData(new TaxReceipt {
             RncIdentificationCard = "36971698521",
             NCF = "E310000000007",
+            Amount = 500.00M,
+            Itbis18 = 90.00M,
+        });
+
+        modelBuilder.Entity<TaxReceipt>().HasData(new TaxReceipt {
+            RncIdentificationCard = "103457957",
+            NCF = "E310000000008",
+            Amount = 1200.00M,
+            Itbis18 = 216.00M,
+        });
+        modelBuilder.Entity<TaxReceipt>().HasData(new TaxReceipt {
+            RncIdentificationCard = "103457957",
+            NCF = "E310000000009",
+            Amount = 1682.00M,
+            Itbis18 = 302.76M,
+        });
+        modelBuilder.Entity<TaxReceipt>().HasData(new TaxReceipt {
+            RncIdentificationCard = "103457957",
+            NCF = "E310000000010",
+            Amount = 635.58M,
+            Itbis18 = 114.40M,
+        });
+        modelBuilder.Entity<TaxReceipt>().HasData(new TaxReceipt {
+            RncIdentificationCard = "103457957",
+            NCF = "E310000000011",
+            Amount = 9821.20M,
+            Itbis18 = 1767.81M,
+        });
+        modelBuilder.Entity<TaxReceipt>().HasData(new TaxReceipt {
+            RncIdentificationCard = "103457957",
+            NCF = "E3100000000012",
             Amount = 500.00M,
             Itbis18 = 90.00M,
         });

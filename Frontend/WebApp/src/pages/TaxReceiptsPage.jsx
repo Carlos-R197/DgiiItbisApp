@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react"
 import axios, { AxiosError } from "axios"
-import { Link, useParams, useNavigate } from "react-router-dom"
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom"
 import { PulseLoader } from "react-spinners"
 import { format } from "date-fns"
 import logger from "../services/logService"
 import LoadingIndicator from "../components/LoadingIndicator"
-import formatIdCard from "../utils/utils"
+import { formatIdCard, toTitleCase } from "../utils/utils"
 
 export default function TaxReceiptsPage() {
   const [receipts, setReceipts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const {rnc} = useParams()
+  const location = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -57,7 +58,7 @@ export default function TaxReceiptsPage() {
   return (
     <div className="p-12 md:p-24 lg:px-36 lg:pt-16 w-full">
       <div className="max-w-3xl w-full m-auto">
-        <h2 className="text-3xl font-semibold mb-12">Comprobantes fiscales</h2>
+        <h2 className="text-3xl font-semibold mb-12">Comprobantes fiscales de {toTitleCase(location.state.contributorName)}</h2>
         <table className="styled-table m-auto w-full">
           <thead>
             <tr>
@@ -87,9 +88,11 @@ export default function TaxReceiptsPage() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
           </Link>
-          <div className="font-semibold text-xl pt-1 font-serif">
-            Total Itbis: {calculateTotal()}
-          </div>
+          {receipts.length > 0 && (
+            <div className="font-semibold text-xl pt-1 font-serif">
+              Total Itbis: {calculateTotal()}
+            </div>
+          )}
         </div>
       </div>
     </div>      

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20230601163925_InitialCreate")]
+    [Migration("20230602020954_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -57,14 +57,14 @@ namespace Api.Migrations
                         },
                         new
                         {
-                            RncIdentificationCard = "12345678957",
+                            RncIdentificationCard = "103457957",
                             Active = false,
                             Name = "FARMACIA TU SALUD",
                             Type = "PERSONA JURIDICA"
                         },
                         new
                         {
-                            RncIdentificationCard = "56982214565",
+                            RncIdentificationCard = "569814260",
                             Active = true,
                             Name = "HORMIGONES PEDRO",
                             Type = "PERSONA JURIDICA"
@@ -127,14 +127,14 @@ namespace Api.Migrations
                             NCF = "E310000000003",
                             Amount = 6657.24m,
                             Itbis18 = 1198.30m,
-                            RncIdentificationCard = "56982214565"
+                            RncIdentificationCard = "569814260"
                         },
                         new
                         {
                             NCF = "E310000000004",
                             Amount = 4265.00m,
                             Itbis18 = 767.70m,
-                            RncIdentificationCard = "56982214565"
+                            RncIdentificationCard = "569814260"
                         },
                         new
                         {
@@ -156,6 +156,41 @@ namespace Api.Migrations
                             Amount = 500.00m,
                             Itbis18 = 90.00m,
                             RncIdentificationCard = "36971698521"
+                        },
+                        new
+                        {
+                            NCF = "E310000000008",
+                            Amount = 1200.00m,
+                            Itbis18 = 216.00m,
+                            RncIdentificationCard = "103457957"
+                        },
+                        new
+                        {
+                            NCF = "E310000000009",
+                            Amount = 1682.00m,
+                            Itbis18 = 302.76m,
+                            RncIdentificationCard = "103457957"
+                        },
+                        new
+                        {
+                            NCF = "E310000000010",
+                            Amount = 635.58m,
+                            Itbis18 = 114.40m,
+                            RncIdentificationCard = "103457957"
+                        },
+                        new
+                        {
+                            NCF = "E310000000011",
+                            Amount = 9821.20m,
+                            Itbis18 = 1767.81m,
+                            RncIdentificationCard = "103457957"
+                        },
+                        new
+                        {
+                            NCF = "E3100000000012",
+                            Amount = 500.00m,
+                            Itbis18 = 90.00m,
+                            RncIdentificationCard = "103457957"
                         });
                 });
 #pragma warning restore 612, 618

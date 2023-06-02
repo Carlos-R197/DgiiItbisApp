@@ -2,23 +2,23 @@
 
 ## Descripción del proyecto
 
-La estructura de la un aplicación esta dividida entre frontend y backend. El frontend contiene el cliente,
-el cual esta escrito en React junto con TailwindCSS y Vite como build tool. Luego esta el backend, el cual se componen 
-de dos proyectos — Api y Api.UnitTests —. Api hace uso de EntityFrameworkCore como ORM y Serilog para logging, mientras que Api.UnitTests hace uso de xUnit para los tests. Ambos proyectos usan **.NET 6** 
+La estructura de la aplicación esta dividida entre frontend y backend. El frontend contiene el cliente,
+el cual esta escrito en React junto con TailwindCSS y Vite como build tool. En el caso del backend este se compone 
+de dos proyectos — Api y Api.UnitTests —. Api hace uso de EntityFrameworkCore como ORM y Serilog para logging, mientras que Api.UnitTests hace uso de xUnit y Moq para los tests. Ambos proyectos usan **.NET 6**. 
 
 ## Como correr el proyecto
 
-El backend se conecta a una base de datos SQL de Azure que ya esta en la nube, por lo tanto solo
-hace falta correr la api y el frontend.
+El backend se conecta a una base de datos SQL de Azure que ya esta en la nube, por lo tanto, solo
+hace falta correr la api y el cliente.
 
-Para subir el backend solo falta ir al directorio Backend/Api, instalar las dependencias y comenzar el proyecto
+Para subir el backend vamos al directorio Backend/Api, instalamos las dependencias y comenzamos el proyecto
 
 ```console
 cd Backend/Api
 dotnet run
 ```
 
-Al subir la api se debe navegar a /swagger para poder ver las rutas disponibles.
+Al subir la api se debe navegar a https://localhost:7210/swagger para poder ver las rutas disponibles.
 
 Una vez el backend este arriba, abrimos otra consola, navegamos al 
 frontend e instalamos las dependencias antes de correr la app

@@ -18,7 +18,7 @@ public class ContributorControllerTests
     public async void GetContributorsAsync_ReturnsContributors()
     {
         // Arrange
-        contributorRepoStub.Setup(repo => repo.GetContributorsAsync())
+        contributorRepoStub.Setup(c => c.GetContributorsAsync())
             .ReturnsAsync(() => GetListOfRandomContributors());
 
         var controller = new ContributorController(contributorRepoStub.Object, loggerStub.Object);
@@ -29,6 +29,20 @@ public class ContributorControllerTests
         Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
         Assert.IsAssignableFrom<IEnumerable<Contributor>>(result.Value);
         Assert.NotEmpty(result.Value as IEnumerable<Contributor>);
+    }
+
+    [Fact]
+    public async void GetContributorsAsync_WithNullRepo_Returns500()
+    {
+        // Arrange
+        contributorRepoStub.Setup(c => c.GetContributorsAsync())
+            .ReturnsAsync(() => null);
+        var controller = new ContributorController(contributorRepoStub.Object, loggerStub.Object);
+        // Act
+        var result = (await controller.GetContributorsAsync()).Result as ObjectResult;
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status500InternalServerError, result.StatusCode);
     }
 
     private IEnumerable<Contributor> GetListOfRandomContributors()

@@ -22,7 +22,7 @@ public class TaxReceiptControllerTests
         // Arrange
         taxRepoStub.Setup(t => t.GetTaxReceiptsAsync())
             .ReturnsAsync(new List<TaxReceipt>());
-        contributorRepoStub.Setup(t => t.ContributorExistsAsync("52987455224"))
+        contributorRepoStub.Setup(c => c.ContributorExistsAsync("52987455224"))
             .ReturnsAsync(true);
         
         var controller = new TaxReceiptController(taxRepoStub.Object, contributorRepoStub.Object, loggerStub.Object);
@@ -40,7 +40,7 @@ public class TaxReceiptControllerTests
         // Arrange
         taxRepoStub.Setup(t => t.GetTaxReceiptsAsync())
             .ReturnsAsync(new List<TaxReceipt>());
-        contributorRepoStub.Setup(t => t.ContributorExistsAsync("69921108970"))
+        contributorRepoStub.Setup(c => c.ContributorExistsAsync("69921108970"))
             .ReturnsAsync(false);
         
         var controller = new TaxReceiptController(taxRepoStub.Object, contributorRepoStub.Object, loggerStub.Object);
@@ -49,5 +49,22 @@ public class TaxReceiptControllerTests
         // Assert 
         Assert.NotNull(result);
         Assert.Equal(StatusCodes.Status404NotFound, result.StatusCode);
+    }
+
+    [Fact]
+    public async void GetTaxReceiptsAsync_WithNull_Returns500()
+    {
+        // Arrange
+        taxRepoStub.Setup(t => t.GetTaxReceiptsAsync(""))
+            .ReturnsAsync(() => null);
+        contributorRepoStub.Setup(c => c.ContributorExistsAsync("06650254120"))
+            .ReturnsAsync(() => true);
+        
+        var controller = new TaxReceiptController(null, contributorRepoStub.Object, loggerStub.Object);
+        // Act
+        var result = (await controller.GetTaxReceiptsAsync("06650254120")).Result as ObjectResult;
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status500InternalServerError, result.StatusCode);
     }
 }

@@ -29,4 +29,16 @@ public class LogControllerTests
         Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
         Assert.Equal("Error posted successfully", result.Value);
     }
+    
+    [Fact]
+    public async void PostLog_WithNull_Returns500()
+    {
+        // Arrange
+        var controller = new LogController(loggerStub.Object);
+        // Act
+        var result = (await controller.PostLogAsync(null as PostLogRequestDto)).Result as ObjectResult;
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status500InternalServerError, result.StatusCode);
+    }
 }
